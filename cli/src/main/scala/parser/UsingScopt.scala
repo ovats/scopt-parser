@@ -1,4 +1,4 @@
-package com.gm.parser
+package parser
 
 object UsingScopt {
 
