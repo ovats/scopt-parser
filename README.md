@@ -22,3 +22,25 @@ This is a sbt multi-project:
 - api: a simple rest API.
 - cli: command line using Scopt.
 - common: project for common classes, traits, objects.
+
+## Endpoints defined in Api:
+
+### GET /customers
+
+Returns the list of customers.
+
+Example:
+
+```
+curl localhost:8080/customer
+```
+
+### POST /customer
+
+Add a new customer.
+
+Example:
+
+```
+curl -X POST http://localhost:8080/customer -H "Content-Type: application/json"  -d '{"name":"John"}'
+```

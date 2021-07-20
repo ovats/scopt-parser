@@ -1,3 +1,5 @@
+import Dependencies.Libraries._
+
 name := "scopt-parser"
 
 version := "0.1"
@@ -36,22 +38,14 @@ lazy val common = project
   .settings(
     name := "common",
     settings,
-//    libraryDependencies ++=
-//      Libraries.basicDeps ++
-//        Libraries.akkaDeps ++
-//        Libraries.circeDeps ++
-//        Libraries.cassandraDeps,
+    libraryDependencies ++= dependencies,
   )
 
 lazy val api = project
   .settings(
     name := "api",
     settings,
-//    libraryDependencies ++=
-//      Libraries.basicDeps ++
-//        Libraries.akkaDeps ++
-//        Libraries.circeDeps ++
-//        Libraries.testDeps,
+    libraryDependencies ++= dependencies,
   )
   .dependsOn(common)
 
@@ -59,14 +53,6 @@ lazy val cli = project
   .settings(
     name := "cli",
     settings,
-    //    libraryDependencies ++=
-    //      Libraries.basicDeps ++
-    //        Libraries.akkaDeps ++
-    //        Libraries.circeDeps ++
-    //        Libraries.testDeps,
+    libraryDependencies ++= dependencies,
   )
   .dependsOn(common)
-
-val scoptVersion = "4.0.1"
-
-libraryDependencies += "com.github.scopt" %% "scopt" % scoptVersion
