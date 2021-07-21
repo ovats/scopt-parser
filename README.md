@@ -54,3 +54,13 @@ Example:
 ```
 curl localhost:8080/customer/9241a211-2fd2-4184-a801-c8556c5594fd
 ```
+
+## Cli project: command line
+
+The Cli allows to run from the command line to print the OAS in YAML format for all endpoints.
+Possible arguments are:
+
+- getcustomer
+- getcustomers
+- postcustomer
+

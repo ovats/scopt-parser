@@ -25,7 +25,7 @@ object Dependencies {
 //    val cliDependencies = Seq(scopt)
 //    val commonDependencies = Seq(tapirCore, tapirAkka, tapirCirce, circe)
 //    val apiDependencies = Seq()
-    val dependencies = Seq(tapirCore, tapirAkka, tapirCirce, circe)
+    val dependencies = Seq(tapirCore, tapirAkka, tapirCirce, circe, scopt)
   }
 
 }
