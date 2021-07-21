@@ -1,7 +1,7 @@
 package com.gm.routes
 
 import com.gm.domain.{Customer, CustomerRequest, ServiceResponse}
-import com.gm.repository.CustomerRepository
+import com.gm.repository.InMemoryCustomerRepository
 import sttp.tapir.{endpoint, path, Endpoint}
 import sttp.tapir.json.circe._
 import sttp.tapir.generic.auto._
@@ -10,7 +10,7 @@ import sttp.tapir.server.ServerEndpoint
 import java.util.UUID
 import scala.concurrent.{ExecutionContext, Future}
 
-class CustomerRoutes(customerRepo: CustomerRepository)(implicit ec: ExecutionContext) {
+class CustomerRoutes(customerRepo: InMemoryCustomerRepository)(implicit ec: ExecutionContext) {
 
   /**
    * Endpoints:

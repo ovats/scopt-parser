@@ -1,7 +1,7 @@
 import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Route
-import com.gm.repository.CustomerRepository
+import com.gm.repository.InMemoryCustomerRepository
 import com.gm.routes.CustomerRoutes
 import sttp.tapir.server.akkahttp.AkkaHttpServerInterpreter
 
@@ -14,7 +14,7 @@ object MainApiApp {
     implicit val system = ActorSystem("MainApiApp")
     import system.dispatcher
 
-    val customerRepo   = new CustomerRepository()
+    val customerRepo   = new InMemoryCustomerRepository()
     val customerRoutes = new CustomerRoutes(customerRepo)
     val routes: Route = AkkaHttpServerInterpreter().toRoute(
       List(

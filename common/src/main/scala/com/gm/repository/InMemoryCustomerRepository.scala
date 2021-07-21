@@ -6,31 +6,30 @@ import java.util.UUID
 import scala.collection.concurrent.TrieMap
 
 //TODO This is just a repository in memory for the sake of the example.
-
-class CustomerRepository {
+class InMemoryCustomerRepository extends Repository[CustomerRequest, Customer] {
 
   private var customers: TrieMap[String, Customer] = TrieMap.empty
 
-  def create(customerRequest: CustomerRequest): Customer = {
+  override def create(customerRequest: CustomerRequest): Customer = {
     val newCustomer = Customer(id = UUID.randomUUID(), name = customerRequest.name)
     customers += (newCustomer.id.toString -> newCustomer)
     newCustomer
   }
 
-  def update(customer: Customer): Customer = {
+  override def update(customer: Customer): Customer = {
     customers += (customer.id.toString -> customer)
     customer
   }
 
-  def find(id: UUID): Option[Customer] = {
+  override def find(id: UUID): Option[Customer] = {
     customers.get(id.toString)
   }
 
-  def findAll(): List[Customer] = {
+  override def findAll(): List[Customer] = {
     customers.toList.map(x => x._2)
   }
 
-  def removeAll: Unit = {
+  override def removeAll(): Unit = {
     customers = TrieMap.empty
   }
 
