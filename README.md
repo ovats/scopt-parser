@@ -44,3 +44,13 @@ Example:
 ```
 curl -X POST http://localhost:8080/customer -H "Content-Type: application/json"  -d '{"name":"John"}'
 ```
+
+### GET /customer/{id}
+
+Return the data of a customer given its id.
+
+Example:
+
+```
+curl localhost:8080/customer/9241a211-2fd2-4184-a801-c8556c5594fd
+```

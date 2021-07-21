@@ -17,7 +17,11 @@ object MainApiApp {
     val customerRepo   = new CustomerRepository()
     val customerRoutes = new CustomerRoutes(customerRepo)
     val routes: Route = AkkaHttpServerInterpreter().toRoute(
-      List(customerRoutes.createCustomerServerEndpoint, customerRoutes.getAllCustomersServerEndpoint)
+      List(
+        customerRoutes.createCustomerServerEndpoint,
+        customerRoutes.getAllCustomersServerEndpoint,
+        customerRoutes.getCustomerServerEndpoint,
+      )
     )
 
     // Start API Rest
