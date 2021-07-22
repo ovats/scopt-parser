@@ -2,10 +2,10 @@ package com.gm.routes
 
 import com.gm.domain.{Customer, CustomerRequest, ServiceResponse}
 import com.gm.repository.InMemoryCustomerRepository
-import sttp.tapir.{endpoint, path, Endpoint}
-import sttp.tapir.json.circe._
 import sttp.tapir.generic.auto._
+import sttp.tapir.json.circe._
 import sttp.tapir.server.ServerEndpoint
+import sttp.tapir.{endpoint, path, Endpoint}
 
 import java.util.UUID
 import scala.concurrent.{ExecutionContext, Future}
@@ -21,6 +21,7 @@ class CustomerRoutes(customerRepo: InMemoryCustomerRepository)(implicit ec: Exec
 
   val getAllCustomers: Endpoint[Unit, ServiceResponse, List[Customer], Any] = {
     endpoint.get
+      .description("Return the list of all customers")
       .in("customers")
       .out(jsonBody[List[Customer]])
       .errorOut(jsonBody[ServiceResponse])
@@ -38,6 +39,7 @@ class CustomerRoutes(customerRepo: InMemoryCustomerRepository)(implicit ec: Exec
 
   val getCustomer: Endpoint[String, ServiceResponse, Customer, Any] =
     endpoint.get
+      .description("Return data of a given customer")
       .in("customer")
       .in(path[String])
       .out(jsonBody[Customer])
@@ -57,6 +59,7 @@ class CustomerRoutes(customerRepo: InMemoryCustomerRepository)(implicit ec: Exec
 
   val createCustomer: Endpoint[CustomerRequest, ServiceResponse, Customer, Any] = {
     endpoint.post
+      .description("Add a customer")
       .in("customer")
       .in(jsonBody[CustomerRequest])
       .out(jsonBody[Customer])
