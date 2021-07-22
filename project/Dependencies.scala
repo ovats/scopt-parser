@@ -17,6 +17,9 @@ object Dependencies {
     val tapirCirce = "com.softwaremill.sttp.tapir" %% "tapir-json-circe"         % tapirVersion
     val tapirDocs  = "com.softwaremill.sttp.tapir" %% "tapir-openapi-docs"       % tapirVersion
     val tapirYaml  = "com.softwaremill.sttp.tapir" %% "tapir-openapi-circe-yaml" % tapirVersion
+    //TODO check exclude
+    val tapirUI =
+      "com.softwaremill.sttp.tapir" %% "tapir-swagger-ui-akka-http" % tapirVersion exclude ("com.typesafe.akka", "akka-stream_2.12")
 
     val circe = "io.circe" %% "circe-core" % circeVersion
 
@@ -24,7 +27,7 @@ object Dependencies {
 //    val cliDependencies = Seq(scopt)
 //    val commonDependencies = Seq(tapirCore, tapirAkka, tapirCirce, circe)
 //    val apiDependencies = Seq()
-    val dependencies = Seq(tapirCore, tapirAkka, tapirCirce, tapirDocs, tapirYaml, circe, scopt)
+    val dependencies = Seq(tapirCore, tapirAkka, tapirCirce, tapirDocs, tapirYaml, tapirUI, circe, scopt)
   }
 
 }
