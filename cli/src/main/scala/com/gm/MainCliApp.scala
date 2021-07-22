@@ -1,20 +1,27 @@
 package com.gm
 
-import com.gm.Command.Command
+import akka.actor.ActorSystem
+import com.gm.repository.InMemoryCustomerRepository
+import com.gm.routes.CustomerRoutes
 import scopt.OParser
+import sttp.tapir.docs.openapi.OpenAPIDocsInterpreter
+import sttp.tapir.openapi.circe.yaml.RichOpenAPI
 
 /*
   getcustomer
   getcustomers
   postcustomer
-
  */
-
-case class Config(mode: Command = Command.Undefined)
 
 object MainCliApp {
 
   def main(args: Array[String]): Unit = {
+
+    implicit val system = ActorSystem("MainCliApp")
+    import system.dispatcher
+
+    val customerRepo   = new InMemoryCustomerRepository()
+    val customerRoutes = new CustomerRoutes(customerRepo)
 
     // Arguments/Commands available
     val builder = OParser.builder[Config]
@@ -49,10 +56,16 @@ object MainCliApp {
 
     // Run the command
     OParser.parse(parser1, args, Config()) match {
-      case Some(Config(Command.GetCustomer))     => println("GetAllCustomers")
-      case Some(Config(Command.GetAllCustomers)) => println("GetAllCustomers")
-      case Some(Config(Command.PostCustomer))    => println("PostCustomer")
-      case _                                     => // This should print help to the console
+      case Some(Config(Command.GetCustomer)) =>
+        println("GetCustomer endpoint:")
+        println(OpenAPIDocsInterpreter().toOpenAPI(customerRoutes.getCustomer, title = "MainCliApp", "1.0").toYaml)
+      case Some(Config(Command.GetAllCustomers)) =>
+        println("GetAllCustomers endpoint:")
+        println(OpenAPIDocsInterpreter().toOpenAPI(customerRoutes.getAllCustomers, title = "MainCliApp", "1.0").toYaml)
+      case Some(Config(Command.PostCustomer)) =>
+        println("PostCustomer endpoint:")
+        println(OpenAPIDocsInterpreter().toOpenAPI(customerRoutes.createCustomer, title = "MainCliApp", "1.0").toYaml)
+      case _ => // This should print help to the console
     }
 
   }
