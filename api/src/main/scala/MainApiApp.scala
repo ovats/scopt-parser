@@ -2,7 +2,8 @@ import akka.actor.ActorSystem
 import akka.http.scaladsl.Http
 import akka.http.scaladsl.server.Directives._
 import akka.http.scaladsl.server.Route
-import com.gm.repository.InMemoryCustomerRepository
+import com.gm.domain.{Customer, CustomerRequest}
+import com.gm.repository.{InMemoryCustomerRepository, Repository}
 import com.gm.routes.CustomerRoutes
 import sttp.tapir.docs.openapi.OpenAPIDocsInterpreter
 import sttp.tapir.openapi.circe.yaml.RichOpenAPI
@@ -18,8 +19,8 @@ object MainApiApp {
     implicit val system = ActorSystem("MainApiApp")
     import system.dispatcher
 
-    val customerRepo   = new InMemoryCustomerRepository()
-    val customerRoutes = new CustomerRoutes(customerRepo)
+    val customerRepo: Repository[CustomerRequest, Customer] = new InMemoryCustomerRepository()
+    val customerRoutes                                      = new CustomerRoutes(customerRepo)
 
     // Endpoint that will show Open API Specification
     val docRoutes = List(customerRoutes.getAllCustomers, customerRoutes.getCustomer, customerRoutes.createCustomer)
